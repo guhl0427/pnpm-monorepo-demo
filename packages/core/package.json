@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "vite": "catalog:",
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "@packages/utils": "workspace:*"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1"
