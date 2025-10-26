@@ -2,6 +2,11 @@ import { format, getTime, debounce } from '@packages/utils'
 import { flatten } from 'lodash-es'
 import { ref } from "vue"
 
+const argv = process.argv
+console.log("argv", argv)
+const params = argv.slice(2)
+console.log("params", params);
+
 const count = ref(0)
 console.log(count)
 console.log(format(new Date()))
