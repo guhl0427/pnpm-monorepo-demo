@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "ask": [
+      "Read(!D:\\guhl\\toys\\pnpm-monorepo-demo/**)",
+      "Edit(!D:\\guhl\\toys\\pnpm-monorepo-demo/**)"
+    ],
+    "allow": [
+      "Read(D:\\guhl\\toys\\pnpm-monorepo-demo/**)",
+      "Edit(D:\\guhl\\toys\\pnpm-monorepo-demo/**)"
+    ]
+  },
+  "memoryImport": {},
+  "monitoring": {}
+}
