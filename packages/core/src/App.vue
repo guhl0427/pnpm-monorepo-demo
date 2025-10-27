@@ -15,4 +15,5 @@ const state = reactive({
 const debouncedInputChange = debounce(function() {
   console.log("inputChange", state.name)
 }, 1000)
+console.log("import.meta.dirname", import.meta);
 </script>
