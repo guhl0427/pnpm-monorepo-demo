@@ -41,6 +41,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@packages/utils':
+        specifier: workspace:*
+        version: link:../utils
       vite:
         specifier: 'catalog:'
         version: 7.1.9
@@ -51,6 +54,12 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^6.0.1
         version: 6.0.1(vite@7.1.9)(vue@3.5.22(typescript@5.9.3))
+
+  packages/reactivity:
+    devDependencies:
+      vite:
+        specifier: ^7.1.7
+        version: 7.1.9
 
   packages/utils:
     dependencies:
