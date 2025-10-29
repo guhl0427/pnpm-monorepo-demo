@@ -1,14 +1,45 @@
+import { computed } from "./computed.js";
 import { reactive } from "./reactive.js";
 import { Watcher } from "./watcher.js";
+import { watch } from "./watch.js";
 
 const data = reactive({
-  msg: "hello"
+  msg: "hello",
+  count: 1
 })
+
+const computedCount = computed(() => {
+  return data.count * 2
+})
+
+function addCount() {
+  data.count++
+}
+
+const HelloWorld = ({ msg, count }) => {
+  return `
+    <div>
+      <h1>${msg}</h1>
+      <h2>count: ${count}</h2>
+      <h3>computedCount: ${computedCount.value}</h3>
+      <button id="btn">add count</button>
+    </div>
+  `
+}
 
 new Watcher(() => {
-  console.log('data.msg', data.msg)
+  console.log('render')
+  const hw = HelloWorld({msg:data.msg, count:data.count})
+  document.querySelector('#app').innerHTML = hw
+  // 添加事件监听器
+  const btn = document.querySelector('#btn')
+  if (btn) {
+    btn.addEventListener('click', addCount)
+  }
 })
 
-setTimeout(() => {
-  data.msg = 'world'
-}, 1000)
+watch(() => computedCount.value, (oldVal, newVal) => {
+  console.log('computedCount changed', oldVal, newVal)
+})
+
+window.dataVue2 = data

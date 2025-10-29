@@ -4,18 +4,46 @@ export class Watcher {
   value
   getter
 
-  constructor(getter) {
+  deps
+  computed
+
+  watch
+  watchCallback
+
+  constructor(getter, options = {}) {
     this.getter = getter
-    this.get()
+
+    this.computed = options.computed || false
+    this.watch = options.watch || false
+    this.watchCallback = options.watchCallback || null
+
+    if (this.computed) {
+      this.deps = new Dep()
+    } else {
+      this.get()
+    }
   }
 
   get() {
     Dep.target = this
     this.value = this.getter()
     Dep.target = null;
+    return this.value
+  }
+
+  depend() {
+    this.deps.depend()
   }
 
   update() {
-    this.get()
+    if (this.computed) {
+      this.deps.notify()
+    } else if (this.watch) {
+      if (this.watchCallback) {
+        this.watchCallback(this.value, this.get())
+      }
+    } else {
+      this.get()
+    }
   }
 }
