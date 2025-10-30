@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'node:path'
-import { log } from 'node:console';
 
 // const __dirname = import.meta.dirname
 export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
