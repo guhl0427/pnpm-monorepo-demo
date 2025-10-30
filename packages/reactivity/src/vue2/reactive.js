@@ -1,5 +1,5 @@
-import { isObject } from "../../../utils/index.js";
-import { Dep } from "./dep.js";
+import { isObject } from "@packages/utils";
+import { Dep } from "./dep";
 
 export function reactive(data) {
   if (isObject(data)) {

@@ -11,6 +11,9 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
   
   
   return {
+    server: {
+      port: 7001
+    },
     plugins: [vue()],
     resolve: {
       alias: {

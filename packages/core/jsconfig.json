@@ -1,0 +1,30 @@
+{
+  // compilerOptions 对象包含 JavaScript 项目的编译选项
+  "compilerOptions": {
+    // baseUrl 定义了模块解析的基准目录
+    // "." 表示当前目录（core 包的根目录）
+    "baseUrl": ".",
+    // paths 定义了路径映射，用于解析模块路径别名
+    "paths": {
+      // 将 @/* 映射到 src/* 相对路径
+      // 例如：@/component/HelloWorld.vue 将被解析为 src/component/HelloWorld.vue
+      "@/*": ["src/*"],
+      // 将 @packages/* 映射到 ../* 相对路径（上一级目录）
+      // 例如：@packages/utils 将被解析为 ../utils
+      // 注意：这里必须使用 "../*" 而不是 "packages/*"
+      // 因为 baseUrl 是当前目录（core 包），而 packages 目录在上一级目录中
+      // 即：d:\guhl\toys\pnpm-monorepo-demo\packages\core\.. = d:\guhl\toys\pnpm-monorepo-demo\packages
+      "@packages/*": ["../*"]
+    },
+    // moduleResolution 指定模块解析策略
+    // "node" 表示使用 Node.js 风格的模块解析
+    "moduleResolution": "node"
+  },
+  // include 定义了哪些文件应该被包含在项目中
+  // "src/**/*" 表示包含 src 目录下的所有文件
+  // "../utils/**/*" 表示包含上层 utils 目录下的所有文件
+  "include": ["src/**/*", "../utils/**/*"],
+  // exclude 定义了哪些文件应该被排除在项目中
+  // "node_modules" 表示排除 node_modules 目录
+  "exclude": ["node_modules"]
+}

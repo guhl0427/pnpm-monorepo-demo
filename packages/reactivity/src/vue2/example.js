@@ -1,7 +1,7 @@
-import { computed } from "./computed.js";
-import { reactive } from "./reactive.js";
-import { Watcher } from "./watcher.js";
-import { watch } from "./watch.js";
+import { computed } from "./computed";
+import { reactive } from "./reactive";
+import { Watcher } from "./watcher";
+import { watch } from "./watch";
 
 const data = reactive({
   msg: "hello",

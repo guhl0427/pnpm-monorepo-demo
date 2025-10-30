@@ -1,4 +1,4 @@
-import { Dep } from "./dep.js"
+import { Dep } from "./dep"
 
 export class Watcher {
   value
