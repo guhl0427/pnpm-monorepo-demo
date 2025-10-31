@@ -10,13 +10,11 @@ let data = reactive({
 })
 
 watch(() => data, (newVal)=> {
-  console.log('function');
-  console.log("new val", newVal.count)
+  console.log('new val function', newVal.count); // output: 2
 }, { deep: true })
 
 watch(data, (newVal)=> {
-  console.log('reactive obj');
-  console.log("new val", newVal.count)
+  console.log('new val reactive obj', newVal.count); // output: 1
 })
 
 setTimeout(() => {
