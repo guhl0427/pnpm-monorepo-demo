@@ -30,7 +30,7 @@ const HelloWorld = ({ msg, count }) => {
 new Watcher(() => {
   console.log('render')
   const hw = HelloWorld({msg:data.msg, count:data.count})
-  document.querySelector('#app').innerHTML = hw
+  document.querySelector('#vue2').innerHTML = hw
   // 添加事件监听器
   const btn = document.querySelector('#btn')
   if (btn) {
