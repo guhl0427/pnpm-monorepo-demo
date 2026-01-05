@@ -75,26 +75,26 @@ function resetLevels() {
 </script>
 
 <template>
-  <main class="app-container">
+  <main class="max-w-[600px] mx-auto p-6 min-h-screen flex flex-col text-center box-border font-sans text-slate-700 bg-gradient-to-br from-[#f6d365] to-[#fda085]">
     <template v-if="!isEditing">
-      <header>
-        <div class="header-top">
-          <h1>找不同</h1>
-          <button @click="isEditing = true" class="icon-btn" aria-label="Settings">⚙️</button>
+      <header class="mb-6 bg-white/90 p-4 rounded-[20px] shadow-sm backdrop-blur-md">
+        <div class="flex items-center justify-center relative mb-2">
+          <h1 class="text-[2rem] font-extrabold bg-gradient-to-tr from-[#FF6B6B] to-[#FF8E53] bg-clip-text text-transparent m-0 tracking-tighter">找不同</h1>
+          <button @click="isEditing = true" class="absolute right-0 bg-transparent border-none text-2xl cursor-pointer p-2 rounded-full hover:bg-black/5 transition-colors" aria-label="Settings">⚙️</button>
         </div>
-        <p class="subtitle">{{ currentLevel?.description }}</p>
-        <p class="level-indicator">Level {{ currentLevelIndex + 1 }} / {{ levels.length }}</p>
+        <!-- <p class="subtitle">{{ currentLevel?.description }}</p> -->
+        <p class="text-sm text-slate-400 mt-3 font-semibold uppercase tracking-widest">Level {{ currentLevelIndex + 1 }} / {{ levels.length }}</p>
       </header>
 
-      <div class="game-area">
+      <div class="flex-1 flex items-center justify-center">
         <GameBoard 
           v-if="currentLevel"
           :items="shuffledItems"
           @select="handleSelect"
         />
-        <div v-else class="no-levels">
-          <p>No levels configured.</p>
-          <button @click="resetLevels">Restore Defaults</button>
+        <div v-else class="text-slate-500">
+          <p class="mb-4">No levels configured.</p>
+          <button @click="resetLevels" class="bg-white px-4 py-2 rounded-lg shadow-sm font-bold text-[#FF6B6B]">Restore Defaults</button>
         </div>
       </div>
 
@@ -116,101 +116,5 @@ function resetLevels() {
 </template>
 
 <style>
-/* Global reset and base styles */
-:root {
-  font-family: 'Outfit', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  color: #2c3e50;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-}
-
-#app {
-  width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-}
-</style>
-
-<style scoped>
-.app-container {
-  max-width: 600px; /* Constrain width for mobile-app feel */
-  margin: 0 auto;
-  padding: 24px 16px;
-  text-align: center;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-header {
-  margin-bottom: 24px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 16px;
-  border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  backdrop-filter: blur(10px);
-}
-
-.header-top {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-bottom: 8px;
-}
-
-.icon-btn {
-  position: absolute;
-  right: 0;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  transition: background 0.2s;
-}
-
-.icon-btn:hover {
-  background: rgba(0,0,0,0.05);
-}
-
-h1 {
-  font-size: 32px; /* Smaller for mobile */
-  font-weight: 800;
-  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0;
-  letter-spacing: -0.5px;
-}
-
-.subtitle {
-  font-size: 18px;
-  color: #666;
-  margin: 4px 0 0;
-  font-weight: 500;
-}
-
-.level-indicator {
-  font-size: 14px;
-  color: #888;
-  margin-top: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.game-area {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* Global reset is handled by Tailwind preflight usually, keeping minimal checks */
 </style>

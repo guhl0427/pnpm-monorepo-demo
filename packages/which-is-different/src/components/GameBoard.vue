@@ -12,22 +12,16 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="game-board">
-    <GameCard
-      v-for="item in items"
-      :key="item.id"
-      :item="item"
-      @select="emit('select', $event)"
+  <div class="grid grid-cols-2 gap-3 w-full max-w-[400px] p-3 mx-auto aspect-square">
+    <GameCard 
+      v-for="item in items" 
+      :key="item.id" 
+      :item="item" 
+      @select="$emit('select', $event)"
     />
   </div>
 </template>
 
-<style scoped>
-.game-board {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  width: 100%;
-  padding: 0;
-}
+<style>
+/* No styles needed, all Tailwind */
 </style>

@@ -11,16 +11,29 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div v-if="visible" class="feedback-overlay">
-    <div class="feedback-content" :class="{ correct: isCorrect, incorrect: !isCorrect }">
-      <div class="icon">
+  <div v-if="visible" class="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[100] p-5 box-border">
+    <div 
+      class="bg-white/95 p-10 rounded-[30px] text-center shadow-[0_20px_60px_rgba(0,0,0,0.2)] w-full max-w-[400px] animate-in zoom-in duration-300 border border-white/50"
+      :class="isCorrect ? 'border-green-100' : 'border-orange-100'"
+    >
+      <div class="text-[80px] mb-6 drop-shadow-[0_10px_20px_rgba(0,0,0,0.1)]">
         {{ isCorrect ? '🎉' : '🤔' }}
       </div>
-      <h2>{{ isCorrect ? '答对了！真棒！' : '再试一次哦' }}</h2>
-      <button v-if="isCorrect" @click="emit('next')" class="action-btn">
+      <h2 class="text-4xl font-extrabold mb-8 m-0 bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
+        {{ isCorrect ? '答对了！真棒！' : '再试一次哦' }}
+      </h2>
+      <button 
+        v-if="isCorrect" 
+        @click="emit('next')" 
+        class="w-full text-xl py-4 px-12 rounded-full border-none cursor-pointer bg-gradient-to-br from-green-400 to-green-600 text-white font-semibold shadow-lg shadow-green-500/20 active:scale-95 transition-all"
+      >
         下一关
       </button>
-      <button v-else @click="emit('retry')" class="action-btn">
+      <button 
+        v-else 
+        @click="emit('retry')" 
+        class="w-full text-xl py-4 px-12 rounded-full border-none cursor-pointer bg-gradient-to-br from-orange-400 to-orange-600 text-white font-semibold shadow-lg shadow-orange-500/20 active:scale-95 transition-all"
+      >
         再试一次
       </button>
     </div>
@@ -28,72 +41,9 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
-.feedback-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.feedback-content {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 40px;
-  border-radius: 30px;
-  text-align: center;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  width: 100%;
-  max-width: 400px;
+/* Tailwind handles the most of it, keeping animation definition if needed or using standard tailwind ones */
+.animate-in {
   animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.icon {
-  font-size: 80px;
-  margin-bottom: 24px;
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
-}
-
-h2 {
-  font-size: 36px; /* Larger */
-  margin: 0 0 32px 0;
-  color: #2d3748;
-  font-weight: 800;
-  background: linear-gradient(45deg, #2d3748, #4a5568);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.action-btn {
-  font-size: 20px;
-  padding: 16px 48px;
-  border-radius: 50px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-  color: white;
-  transition: all 0.2s;
-  font-weight: 600;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  width: 100%;
-}
-
-.action-btn:active {
-  transform: scale(0.98);
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-}
-
-.incorrect .action-btn {
-  background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
 }
 
 @keyframes popIn {

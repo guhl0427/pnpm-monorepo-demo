@@ -40,162 +40,84 @@ function save() {
 </script>
 
 <template>
-  <div class="level-editor">
-    <div class="editor-header">
-      <h2>Level Editor</h2>
-      <div class="header-actions">
-        <button @click="emit('close')">Cancel</button>
-        <button class="primary" @click="save">Save Changes</button>
+  <div class="p-5 bg-white min-h-screen">
+    <div class="flex justify-between items-center mb-5 sticky top-0 bg-white z-10 pb-3 border-b border-slate-100">
+      <h2 class="text-2xl font-bold text-slate-800">游戏编辑器</h2>
+      <div class="flex gap-2">
+        <button 
+          @click="emit('close')"
+          class="px-4 py-2 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+        >
+          取消
+        </button>
+        <button 
+          @click="save"
+          class="px-4 py-2 rounded-lg bg-green-500 text-white font-bold hover:bg-green-600 transition-colors shadow-sm shadow-green-200"
+        >
+          保存更改
+        </button>
       </div>
     </div>
 
-    <div class="levels-list">
-      <div v-for="(level, idx) in levels" :key="level.id" class="level-item">
-        <div class="level-header">
-          <h3>Level {{ idx + 1 }} (ID: {{ level.id }})</h3>
-          <button class="danger" @click="removeLevel(idx)">Delete</button>
+    <div class="flex flex-col gap-5">
+      <div v-for="(level, idx) in levels" :key="level.id" class="border border-slate-100 p-5 rounded-xl bg-slate-50/50 shadow-sm">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-slate-700">第 {{ idx + 1 }} 关 (ID: {{ level.id }})</h3>
+          <button 
+            @click="removeLevel(idx)"
+            class="px-3 py-1 text-sm rounded-md bg-rose-500 text-white hover:bg-rose-600 transition-colors"
+          >
+            删除
+          </button>
         </div>
         
-        <div class="form-group">
-          <label>Title:</label>
-          <input v-model="level.title" />
-        </div>
-        
-        <div class="form-group">
-          <label>Description:</label>
-          <input v-model="level.description" />
-        </div>
+        <div class="space-y-4">
+          <div class="space-y-1">
+            <label class="block text-sm font-bold text-slate-600">标题:</label>
+            <input v-model="level.title" class="w-full p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+          </div>
+          
+          <div class="space-y-1">
+            <label class="block text-sm font-bold text-slate-600">描述:</label>
+            <input v-model="level.description" class="w-full p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+          </div>
 
-        <div class="items-grid">
-          <div v-for="(item, itemIdx) in level.items" :key="item.id" class="item-edit">
-            <h4>Item {{ itemIdx + 1 }}</h4>
-            <div class="form-group">
-              <label>Type:</label>
-              <select v-model="item.type">
-                <option value="text">Text</option>
-                <option value="image">Image URL</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Content:</label>
-              <input v-model="item.content" :placeholder="item.type === 'image' ? 'Image URL' : 'Text'" />
-            </div>
-             <div class="form-group checkbox">
-              <label>
-                <input type="checkbox" v-model="item.isDifferent" />
-                Is Different?
-              </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+            <div v-for="(item, itemIdx) in level.items" :key="item.id" class="p-4 border border-slate-100 bg-white rounded-lg shadow-sm space-y-3">
+              <h4 class="font-bold text-slate-500 text-sm">选项 {{ itemIdx + 1 }}</h4>
+              
+              <div class="space-y-1">
+                <label class="block text-xs font-bold text-slate-400">类型:</label>
+                <select v-model="item.type" class="w-full p-2 border border-slate-200 rounded-lg text-sm bg-slate-50 outline-none">
+                  <option value="text">文字 / Emoji</option>
+                  <option value="image">图片链接</option>
+                </select>
+              </div>
+
+              <div class="space-y-1">
+                <label class="block text-xs font-bold text-slate-400">内容:</label>
+                <input v-model="item.content" :placeholder="item.type === 'image' ? '输入图片 URL' : '输入文字或 Emoji'" class="w-full p-2 border border-slate-200 rounded-lg text-sm outline-none focus:ring-1 focus:ring-green-500" />
+              </div>
+
+              <div class="flex items-center gap-2 pt-1">
+                <input type="checkbox" v-model="item.isDifferent" class="w-4 h-4 accent-green-500" />
+                <label class="text-sm font-medium text-slate-600">设为“不同项”</label>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <button class="add-btn" @click="addLevel">+ Add New Level</button>
+    <button 
+      @click="addLevel"
+      class="w-full mt-6 py-4 border-2 border-dashed border-slate-200 rounded-xl text-slate-400 font-bold hover:border-green-300 hover:text-green-500 hover:bg-green-50/50 transition-all mb-10 text-lg"
+    >
+      + 添加新关卡
+    </button>
   </div>
 </template>
 
 <style scoped>
-.level-editor {
-  padding: 20px;
-  background: white;
-  min-height: 100vh;
-}
-
-.editor-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  position: sticky;
-  top: 0;
-  background: white;
-  z-index: 10;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-.level-item {
-  border: 1px solid #ddd;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  background: #fafafa;
-}
-
-.level-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.form-group {
-  margin-bottom: 10px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 4px;
-  font-weight: bold;
-}
-
-.form-group input, .form-group select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.items-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.item-edit {
-  border: 1px solid #eee;
-  padding: 10px;
-  background: white;
-  border-radius: 4px;
-}
-
-.checkbox {
-  display: flex;
-  align-items: center;
-}
-
-.checkbox input {
-  width: auto;
-  margin-right: 8px;
-}
-
-button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  background: white;
-}
-
-button.primary {
-  background: #4CAF50;
-  color: white;
-  border: none;
-}
-
-button.danger {
-  background: #ff5252;
-  color: white;
-  border: none;
-}
-
-button.add-btn {
-  width: 100%;
-  padding: 16px;
-  border: 2px dashed #ccc;
-  background: transparent;
-  font-size: 1.2rem;
-  margin-bottom: 40px;
-}
+/* All styles handled by Tailwind */
 </style>

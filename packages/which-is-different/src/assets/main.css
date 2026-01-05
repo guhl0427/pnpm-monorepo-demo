@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", "Segoe UI", "Roboto", "Helvetica", "Arial", sans-serif;
+  --color-brand-orange: #fda085;
+  --color-brand-yellow: #f6d365;
+}
+
+/* Custom base styles */
+@layer base {
+  body {
+    @apply antialiased m-0 p-0;
+  }
+}
